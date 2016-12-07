@@ -12,14 +12,7 @@ provisioner:
   name: chef_zero
   sudo: true
 
-
-#platforms:
-#  - name: linux
-#    driver_config:
-#      image_urn: Canonical:UbuntuServer:14.04.4-LTS:latest
-
 transport:
-  #ssh_key: '~/.ssh/rlupo_azure_key'
   ssh_key: <%= ENV['AZURE_KEY'] %>
 
 platforms:
