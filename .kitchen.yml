@@ -3,10 +3,10 @@ driver:
   name: azurerm
 
 driver_config:
-  #subscription_id: 'b02e675a-cee0-49bd-a056-daa7ed05bf4e'
   subscription_id: <%= ENV['AZURE_SUBSCRIPTION'] %>
   location: 'East US'
   machine_size: 'Standard_A2_v2'
+  azure_resource_group_name: habitat-rg
 
 provisioner:
   name: chef_zero
@@ -21,7 +21,7 @@ platforms:
       image_urn: OpenLogic:CentOS:7.2:latest
 
 suites:
-  <%  1.upto(2) do |n| %>
+  <%  1.upto(36) do |n| %>
   - name: hab-ws-nyc-<%= n %>
     run_list:
       - recipe[habitat_azure_workstation]
