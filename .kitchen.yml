@@ -1,26 +1,38 @@
 ---
 driver:
-  name: vagrant
+  name: azurerm
+
+driver_config:
+  #subscription_id: 'b02e675a-cee0-49bd-a056-daa7ed05bf4e'
+  subscription_id: <%= ENV['AZURE_SUBSCRIPTION'] %>
+  location: 'East US'
+  machine_size: 'Standard_A2_v2'
 
 provisioner:
   name: chef_zero
-  # You may wish to disable always updating cookbooks in CI or other testing environments.
-  # For example:
-  #   always_update_cookbooks: <%= !ENV['CI'] %>
-  always_update_cookbooks: true
+  sudo: true
 
-verifier:
-  name: inspec
+
+#platforms:
+#  - name: linux
+#    driver_config:
+#      image_urn: Canonical:UbuntuServer:14.04.4-LTS:latest
+
+transport:
+  #ssh_key: '~/.ssh/rlupo_azure_key'
+  ssh_key: <%= ENV['AZURE_KEY'] %>
 
 platforms:
-  - name: ubuntu-16.04
-  - name: centos-7.2
+  - name: centos
+    driver_config:
+      image_urn: OpenLogic:CentOS:7.2:latest
 
 suites:
-  - name: default
+  <%  1.upto(2) do |n| %>
+  - name: hab-ws-nyc-<%= n %>
     run_list:
-      - recipe[habitat_azure_workstation::default]
-    verifier:
-      inspec_tests:
-        - test/recipes
+      - recipe[habitat_azure_workstation]
+    driver:
+      vm_name: hab-ws-nyc-<%= n %>
     attributes:
+  <% end %>
