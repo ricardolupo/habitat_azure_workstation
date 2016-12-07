@@ -21,7 +21,7 @@ platforms:
       image_urn: OpenLogic:CentOS:7.2:latest
 
 suites:
-  <%  1.upto(36) do |n| %>
+  <%  1.upto(2) do |n| %>
   - name: hab-ws-nyc-<%= n %>
     run_list:
       - recipe[habitat_azure_workstation]
