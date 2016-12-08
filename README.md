@@ -22,5 +22,6 @@ Once your Test-kitchen run is complete, you can obtain the IP addresses of the V
 
 Credentials for the spun up VMs are U: *chef* P: *chef*
 
-#NOTE
-You will not be able to re-converge your VMs after the Test-kitchen run is complete, and that is by design. If you have issues with a node, just go ahead and destroy the affected VM and recreate it. 
+# NOTE
+
+You will not be able to re-converge your VMs after the Test-kitchen run is complete, and that is by design. If you have issues with a node, just go ahead and destroy the affected VM and recreate it.
