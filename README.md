@@ -21,3 +21,6 @@ In the output, you will want to copy the resource group that is created as part 
 Once your Test-kitchen run is complete, you can obtain the IP addresses of the VMs by running `azure vm list-ip-address <resource group name>` from the command line, where <resource group name> is the resource group that you copied from the initial Test-kitchen run.
 
 Credentials for the spun up VMs are U: *chef* P: *chef*
+
+#NOTE
+You will not be able to re-converge your VMs after the Test-kitchen run is complete, and that is by design. If you have issues with a node, just go ahead and destroy the affected VM and recreate it. 
