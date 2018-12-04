@@ -1,7 +1,7 @@
 ---
 driver:
   name: azurerm
-  azure_resource_group_prefix: kitchen-jmlayn-
+  azure_resource_group_prefix: kitchen-habwkst-
   vm_tags:
     X-Contact: <%= ENV['USER'] %>
     X-Application: <%= ENV['X_APPLICATION'] %>
