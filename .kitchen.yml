@@ -1,26 +1,40 @@
 ---
 driver:
   name: azurerm
+  azure_resource_group_prefix: kitchen-habwkst-
+  vm_tags:
+    X-Contact: <%= ENV['USER'] %>
+    X-Application: <%= ENV['X_APPLICATION'] %>
+    X-Dept: <%= ENV['X_DEPT'] %>
+    X-Customer: "Test-Kitchen"
+    X-Project: "Test-Kitchen"
+    X-TTL: 8
 
 driver_config:
-  subscription_id: <%= ENV['AZURE_SUBSCRIPTION'] %>
-  location: 'East US'
-  machine_size: 'Standard_A2_v2'
+  subscription_id: <%= ENV['AZURE_SUBSCRIPTION_ID'] %>
+  location: <%= ENV['AZURE_LOCATION'] %>
+  machine_size: 'Standard_D2_v2'
 
 provisioner:
   name: chef_zero
-  sudo: true
+  # You may wish to disable always updating cookbooks in CI or other testing environments.
+  # For example:
+  #   always_update_cookbooks: <%= !ENV['CI'] %>
+  always_update_cookbooks: true
 
-transport:
-  ssh_key: <%= ENV['AZURE_KEY'] %>
+verifier:
+  name: inspec
 
 platforms:
-  - name: centos
+  - name: centos-7
     driver_config:
-      image_urn: OpenLogic:CentOS:7.2:latest
+      image_urn: OpenLogic:CentOS:7.4:latest
+      vmname: <%= ENV['USER'] %>-CentOS
+    transport:
+      ssh_key: <%= ENV['AZURE_SSH_KEY_PATH'] %>
 
 suites:
-  <%  1.upto(35) do |n| %>
+<%  1.upto(1) do |n| %>
   - name: hab-ws-nyc-<%= n %>
     run_list:
       - recipe[habitat_azure_workstation]
